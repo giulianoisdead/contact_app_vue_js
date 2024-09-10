@@ -20,7 +20,8 @@
           <input
             type="text"
             class="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Nom du contact"
+            placeholder="Nom du contact" 
+            v-model="inputContact.name"
           />
         </div>
         <div class="mb-4">
@@ -29,6 +30,7 @@
             type="text"
             class="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="Numéro de téléphone"
+            v-model="inputContact.phone"
           />
         </div>
         <div class="mb-4">
@@ -37,10 +39,11 @@
             type="email"
             class="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="Adresse email"
+            v-model="inputContact.email"
           />
         </div>
         <button
-          class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+          class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md" @click.prevent="addOne()"
         >
           Ajouter/Modifier le contact
         </button>
@@ -68,7 +71,6 @@
           >
         
             <div>
-              <p class="text-lg font-semibold" v-model="contact.id">{{contact.id}}</p>
               <p class="text-lg font-semibold" v-model="contact.name">{{contact.name}}</p>
               <p class="text-gray-600" v-model="contact.phone">{{contact.phone}}</p>
               <p class="text-gray-600" v-model="contact.email">{{contact.email}}</p>
@@ -94,9 +96,9 @@
 
     <script>
 
-        localStorage.contacts = JSON.stringify([
-        { id: Date.now(), name: "John Doe", phone: "123456789", email: "john@example.com" },
-        ]);
+        // localStorage.contacts = JSON.stringify([
+       //  { id: Date.now(), name: "John Doe", phone: "123456789", email: "john@example.com" },
+       //  ]);
 
 
 
@@ -108,7 +110,18 @@
             contacts: JSON.parse(localStorage.getItem("contacts")) || [],
             inputContact: { id: null, name: "", phone: "", email: "" },
           };
+      },
+
+      methods: {
+        addOne() {
+          this.contacts.push({ ...this.inputContact });
+            this.inputContact.id = Date.now();
+            this.inputContact.name = "";
+            this.inputContact.phone = "";
+            this.inputContact.email = "";
+        }
       }
+
     }).mount("#app");
 
     </script>
