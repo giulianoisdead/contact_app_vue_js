@@ -64,6 +64,7 @@
         <ul class="space-y-4">
           <li
             class="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-sm"
+            v-for 
           >
             <div>
               <p class="text-lg font-semibold">Name</p>
@@ -91,11 +92,22 @@
 
     <script>
       const id = Date.now();
-      localStorage.setItem(
-    "array1", JSON.stringify([{ id: id, name: "John Doe", phone: "123456789", email: "john@example.com" },])
-    );
+        localStorage.contacts = JSON.stringify([
+        { id: id, name: "John Doe", phone: "123456789", email: "john@example.com" },
+        ]);
 
-    console.log(localStorage.array1);
+
+
+    console.log(localStorage.contacts);
+
+    Vue.createApp({
+      data() {
+        return {
+            contacts: JSON.parse(localStorage.getItem("contacts")) || [],
+            inputcontact: { id: id, name: "", phone: "", email: "" },
+          };
+      }
+    })
 
     </script>
   </body>
