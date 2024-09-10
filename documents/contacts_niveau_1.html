@@ -64,12 +64,14 @@
         <ul class="space-y-4">
           <li
             class="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-sm"
-            v-for 
+            v-for="contact in contacts" :key="contact"
           >
+        
             <div>
-              <p class="text-lg font-semibold">Name</p>
-              <p class="text-gray-600">phone</p>
-              <p class="text-gray-600">email</p>
+              <p class="text-lg font-semibold" v-model="contact.id">{{contact.id}}</p>
+              <p class="text-lg font-semibold" v-model="contact.name">{{contact.name}}</p>
+              <p class="text-gray-600" v-model="contact.phone">{{contact.phone}}</p>
+              <p class="text-gray-600" v-model="contact.email">{{contact.email}}</p>
             </div>
             <div class="flex space-x-2">
               <button
@@ -91,9 +93,9 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <script>
-      const id = Date.now();
+
         localStorage.contacts = JSON.stringify([
-        { id: id, name: "John Doe", phone: "123456789", email: "john@example.com" },
+        { id: Date.now(), name: "John Doe", phone: "123456789", email: "john@example.com" },
         ]);
 
 
@@ -104,10 +106,10 @@
       data() {
         return {
             contacts: JSON.parse(localStorage.getItem("contacts")) || [],
-            inputcontact: { id: id, name: "", phone: "", email: "" },
+            inputContact: { id: null, name: "", phone: "", email: "" },
           };
       }
-    })
+    }).mount("#app");
 
     </script>
   </body>
